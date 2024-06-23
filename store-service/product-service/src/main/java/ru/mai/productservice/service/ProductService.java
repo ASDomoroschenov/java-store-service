@@ -17,6 +17,7 @@ public class ProductService {
 
     /**
      * Запрос на получение всех продуктов
+     *
      * @return List<ProductResponse> - список ответов
      */
     public List<ProductResponse> retrieveAll() {
@@ -27,6 +28,7 @@ public class ProductService {
 
     /**
      * Запрос на получение списка всех продуктов по их id
+     *
      * @param ids - список id
      * @return List<ProductResponse> - список ответов
      */
@@ -38,6 +40,7 @@ public class ProductService {
 
     /**
      * Сохранение или обновление переданных в теле запроса продуктов
+     *
      * @param requests - список запросов
      * @return List<ProductResponse> - список сохраненных/обновленных продуктов
      */
@@ -54,6 +57,7 @@ public class ProductService {
 
     /**
      * Удаление всех записей в таблице по переданному списку id
+     *
      * @param ids - список id
      */
     public void remove(List<Long> ids) {

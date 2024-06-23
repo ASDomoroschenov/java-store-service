@@ -11,6 +11,7 @@ public class ProductMapper {
 
     /**
      * Преобразование сущности в ответ
+     *
      * @param model - сущность
      * @return ProductResponse - ответ
      */
@@ -25,6 +26,7 @@ public class ProductMapper {
 
     /**
      * Преобразование запроса в сущность
+     *
      * @param request - запрос
      * @return Product - сущность
      */

@@ -1,29 +1,25 @@
-package ru.mai.productservice.controller;
+package ru.mai.inventoryservice.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import lombok.RequiredArgsConstructor;
 import org.springframework.web.ErrorResponse;
-import org.springframework.web.bind.annotation.*;
-import ru.mai.productservice.dto.request.ProductRequest;
-import ru.mai.productservice.dto.response.ProductResponse;
-import ru.mai.productservice.service.ProductService;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import ru.mai.inventoryservice.dto.request.InventoryRequest;
+import ru.mai.inventoryservice.dto.response.InventoryResponse;
 
 import java.util.List;
 
-@RestController
-@RequiredArgsConstructor
-@RequestMapping("/product-service")
-public class ProductController {
-
-    private final ProductService productService;
+public interface IInventoryController {
 
     @Operation(
-            summary = "Получение всех продуктов",
-            description = "Метод возвращает список всех продуктов, определенных в базе данных",
+            summary = "Получение всех продуктов склада",
+            description = "Метод возвращает список всех продуктов склада, определенных в базе данных",
             responses = {
                     @ApiResponse(
                             responseCode = "200",
@@ -31,7 +27,7 @@ public class ProductController {
                             content = {
                                     @Content(
                                             mediaType = "application/json",
-                                            array = @ArraySchema(schema = @Schema(implementation = ProductResponse.class))
+                                            array = @ArraySchema(schema = @Schema(implementation = InventoryResponse.class))
                                     )
                             }
                     ),
@@ -48,14 +44,12 @@ public class ProductController {
             }
     )
     @GetMapping("/retrieveAll")
-    public List<ProductResponse> retrieveAll() {
-        return productService.retrieveAll();
-    }
+    List<InventoryResponse> retrieveAll();
 
 
     @Operation(
-            summary = "Получение всех продуктов по списку ids",
-            description = "В метод передается список id, в качестве ответа - список ProductResponse",
+            summary = "Получение всех продуктов склада по списку ids",
+            description = "В метод передается список id, в качестве ответа - список InventoryResponse",
             responses = {
                     @ApiResponse(
                             responseCode = "200",
@@ -63,7 +57,7 @@ public class ProductController {
                             content = {
                                     @Content(
                                             mediaType = "application/json",
-                                            array = @ArraySchema(schema = @Schema(implementation = ProductResponse.class))
+                                            array = @ArraySchema(schema = @Schema(implementation = InventoryResponse.class))
                                     )
                             }
                     ),
@@ -84,18 +78,16 @@ public class ProductController {
             required = true,
             content = {
                     @Content(
-                            array = @ArraySchema(schema = @Schema(implementation = ProductRequest.class))
+                            array = @ArraySchema(schema = @Schema(implementation = InventoryRequest.class))
                     )
             }
     )
     @GetMapping("/retrieveAllByIds")
-    public List<ProductResponse> retrieveAllByIds(List<Long> ids) {
-        return productService.retrieveAllByIds(ids);
-    }
+    List<InventoryResponse> retrieveAllByIds(List<Long> ids);
 
 
     @Operation(
-            summary = "Сохранить/обновить продукты",
+            summary = "Сохранить/обновить продукты на складе",
             description = "Сохранение или обновление (если объекты уже есть) по переданному списку запросов",
             responses = {
                     @ApiResponse(
@@ -104,7 +96,7 @@ public class ProductController {
                             content = {
                                     @Content(
                                             mediaType = "application/json",
-                                            array = @ArraySchema(schema = @Schema(implementation = ProductResponse.class))
+                                            array = @ArraySchema(schema = @Schema(implementation = InventoryResponse.class))
                                     )
                             }
                     ),
@@ -121,22 +113,20 @@ public class ProductController {
             }
     )
     @io.swagger.v3.oas.annotations.parameters.RequestBody(
-            description = "Список объектов ProductRequest",
+            description = "Список объектов InventoryRequest",
             required = true,
             content = {
                     @Content(
-                            array = @ArraySchema(schema = @Schema(implementation = ProductRequest.class))
+                            array = @ArraySchema(schema = @Schema(implementation = InventoryRequest.class))
                     )
             }
     )
     @PostMapping("/save")
-    public List<ProductResponse> save(@RequestBody List<ProductRequest> requests) {
-        return productService.save(requests);
-    }
+    List<InventoryResponse> save(@RequestBody List<InventoryRequest> requests);
 
 
     @Operation(
-            summary = "Удалить продукты по ids",
+            summary = "Удалить продукты на складе по ids",
             description = "Удаление объектов из базы данных по переданному списку id"
     )
     @io.swagger.v3.oas.annotations.parameters.RequestBody(
@@ -144,13 +134,11 @@ public class ProductController {
             required = true,
             content = {
                     @Content(
-                            array = @ArraySchema(schema = @Schema(implementation = ProductRequest.class))
+                            array = @ArraySchema(schema = @Schema(implementation = InventoryRequest.class))
                     )
             }
     )
     @DeleteMapping("/remove")
-    public void remove(@RequestBody List<Long> ids) {
-        productService.remove(ids);
-    }
+    void remove(@RequestBody List<Long> ids);
 
 }

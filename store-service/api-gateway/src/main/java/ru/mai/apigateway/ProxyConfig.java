@@ -15,6 +15,14 @@ public class ProxyConfig {
                         .path("/store-service/api/product-service/**")
                         .filters(filter -> filter.stripPrefix(2))
                         .uri("lb://product-service"))
+                .route(path -> path
+                        .path("/store-service/api/inventory-service/**")
+                        .filters(filter -> filter.stripPrefix(2))
+                        .uri("lb://inventory-service"))
+                .route(path -> path
+                        .path("/store-service/api/order-service/**")
+                        .filters(filter -> filter.stripPrefix(2))
+                        .uri("lb://order-service"))
                 .build();
     }
 
