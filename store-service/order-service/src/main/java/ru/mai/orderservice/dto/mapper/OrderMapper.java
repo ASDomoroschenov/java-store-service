@@ -9,6 +9,8 @@ import ru.mai.orderservice.model.OrderItem;
 
 public class OrderMapper {
 
+    private OrderMapper() {}
+
     /**
      * Преобразование OrderItemRequest в OrderItem
      *
